@@ -2,7 +2,7 @@
 
 Aplicación web para explorar recetas del mundo: búscalas por nombre, recórrelas por categoría, abre el detalle con ingredientes y pasos, y guarda tus favoritas. Se construyó con **Next.js 16 (App Router)**, **TypeScript** y **Tailwind CSS v4**, usando **Vibe Coding** con Claude Code como copiloto.
 
-**🔗 Demo en producción:** _URL_PENDIENTE_
+**🔗 Demo en producción:** https://recetario-vibe.vercel.app
 
 > El proceso de desarrollo guiado por IA (prompts, iteraciones, decisiones y desafíos) está documentado en [VIBE_CODING.md](./VIBE_CODING.md).
 

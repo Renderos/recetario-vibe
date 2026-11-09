@@ -6,6 +6,7 @@ Registro de cómo se construyó **Sazón · Recetario** con un asistente de IA c
 - **Rol del estudiante:** definir el producto, elegir entre alternativas, revisar y aprobar el código y la publicación
 - **Rol de la IA:** proponer la arquitectura, generar el código, ejecutar lint/build, probar en el navegador y corregir errores
 - **Fecha:** noviembre de 2026
+- **Producción:** https://recetario-vibe.vercel.app
 
 ---
 
@@ -119,6 +120,8 @@ Las funciones con `'use cache'` serializan sus resultados y errores. En producci
 
 ### Desafío 4 · Detalles menores
 
+- Despliegue: la CLI de Vercel no tenía sesión y el conector de Vercel respondió 403 al crear el proyecto → el estudiante hizo `vercel login`, y la IA ejecutó `vercel link` (que conectó el repo de GitHub para despliegues automáticos), cargó las variables de entorno y `vercel deploy --prod`.
+
 - `Response.json<T>()` no acepta genéricos en la versión de tipos instalada → se cambió a `{…} satisfies ApiError`.
 - `RouteContext` y `PageProps` no existían para las rutas nuevas → hubo que ejecutar `next typegen` (el `next dev`/`build` también los regenera).
 - El patrón `.env*` del `.gitignore` también ignoraba `.env.example` → se añadió la excepción `!.env.example`.
@@ -147,7 +150,8 @@ Las funciones con `'use cache'` serializan sus resultados y errores. En producci
 2. `feat(api): Route Handlers para recetas, búsqueda, aleatoria y categorías`
 3. `feat: páginas de inicio, categorías, receta, búsqueda y favoritos` (incluye los fixes de los desafíos 1 y 2)
 4. `fix(api): responder 502 cuando TheMealDB falla` (desafío 3)
-5. `docs: README, VIBE_CODING y despliegue`
+5. `docs: README con instalación y uso, VIBE_CODING con el proceso`
+6. `docs: enlace al despliegue en Vercel`
 
 ---
 
