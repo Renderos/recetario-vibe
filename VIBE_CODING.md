@@ -129,6 +129,17 @@ Las funciones con `'use cache'` serializan sus resultados y errores. En producci
 
 ---
 
+### Iteración 5 · Switch de modo claro / oscuro
+
+> Prompt: «añádele un switch para modo oscuro y claro»
+
+- El CSS pasó de depender solo de `prefers-color-scheme` a leer el atributo `data-theme` en `<html>`. Si el usuario no ha elegido nada, se sigue respetando el tema del sistema.
+- `ThemeToggle` es un Client Component con `role="switch"` y `aria-checked`. Lee el tema con `useSyncExternalStore`, así que reacciona también a cambios del sistema operativo y de otras pestañas.
+- **Desafío: el parpadeo.** Si el tema se aplicara al hidratar React, la página se vería un instante con el tema equivocado. Se resolvió con un script inline en `<head>` que aplica el tema guardado antes de pintar, más `suppressHydrationWarning` en `<html>`.
+- **Desafío: exportar un string desde un archivo `"use client"`.** Un Server Component que importa una constante de un módulo cliente recibe una referencia, no el valor. Por eso el script y la clave se movieron a `src/lib/theme.ts`, que es un módulo compartido.
+
+---
+
 ## 4. Decisiones técnicas
 
 | Decisión | Motivo |
@@ -152,6 +163,7 @@ Las funciones con `'use cache'` serializan sus resultados y errores. En producci
 4. `fix(api): responder 502 cuando TheMealDB falla` (desafío 3)
 5. `docs: README con instalación y uso, VIBE_CODING con el proceso`
 6. `docs: enlace al despliegue en Vercel`
+7. `feat: switch de modo claro/oscuro`
 
 ---
 

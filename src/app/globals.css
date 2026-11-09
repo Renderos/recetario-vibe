@@ -10,10 +10,17 @@
   --accent: #c2410c;
   --accent-soft: #fde8dc;
   --herb: #3f6212;
+  color-scheme: light;
 }
 
+/*
+ * Tema oscuro. Se aplica si:
+ *  - el usuario lo eligió con el switch (data-theme="dark"), o
+ *  - no eligió nada y su sistema operativo está en modo oscuro.
+ * data-theme="light" fuerza el claro aunque el sistema esté en oscuro.
+ */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --background: #16120f;
     --surface: #211b17;
     --foreground: #f3ece4;
@@ -22,7 +29,30 @@
     --accent: #fb923c;
     --accent-soft: #3b2216;
     --herb: #a3e635;
+    color-scheme: dark;
   }
+}
+
+:root[data-theme="dark"] {
+  --background: #16120f;
+  --surface: #211b17;
+  --foreground: #f3ece4;
+  --muted: #a99d91;
+  --border: #3a312a;
+  --accent: #fb923c;
+  --accent-soft: #3b2216;
+  --herb: #a3e635;
+  color-scheme: dark;
+}
+
+/* Transición suave al cambiar de tema (solo colores) */
+body,
+header,
+footer {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
 }
 
 @theme inline {

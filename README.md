@@ -36,7 +36,7 @@ Todos los errores devuelven `{ "error": "mensaje" }` con el código HTTP adecuad
 - **6 páginas** distintas + 4 Route Handlers que consumen la API externa [TheMealDB](https://www.themealdb.com/api.php).
 - **Server y Client Components combinados**: p. ej. `RecipeCard` (Server) incrusta `FavoriteButton` (Client).
 - **Hooks de React**: `useState` y `useEffect` en el buscador, la receta sorpresa, favoritos y la navbar; `useSyncExternalStore` para `localStorage`.
-- **Responsive**: grillas de 1→2→3 columnas y menú hamburguesa en móvil. Incluye modo oscuro automático.
+- **Responsive**: grillas de 1→2→3 columnas y menú hamburguesa en móvil. Incluye un **switch de modo claro/oscuro** en la navbar (por defecto sigue el tema del sistema y recuerda la elección en `localStorage`).
 - **Loading UI**: `loading.tsx` global y por ruta con skeletons; estados de carga propios en los Client Components.
 - **Error UI**: `error.tsx` (global y del detalle de receta), `global-error.tsx`, `not-found.tsx` y estados de error con botón *Reintentar* en el cliente.
 - **Variables de entorno** en `.env.local` (plantilla en `.env.example`); la API key solo se usa en el servidor.
