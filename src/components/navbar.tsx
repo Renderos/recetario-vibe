@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useState } from "react";
 import { useFavorites } from "@/hooks/use-favorites";
 
 const LINKS = [
@@ -12,18 +12,36 @@ const LINKS = [
   { href: "/favoritos", label: "Favoritos" },
 ];
 
+/**
+ * Con Cache Components, leer la URL (usePathname) fuera de <Suspense> bloquea
+ * el prerender de rutas dinámicas. La vista se renderiza primero sin ruta
+ * activa (fallback estático) y luego se resalta el enlace actual.
+ */
 export function Navbar({ appName }: { appName: string }) {
-  const pathname = usePathname();
+  return (
+    <Suspense fallback={<NavbarView appName={appName} pathname={null} />}>
+      <NavbarWithPathname appName={appName} />
+    </Suspense>
+  );
+}
+
+function NavbarWithPathname({ appName }: { appName: string }) {
+  return <NavbarView appName={appName} pathname={usePathname()} />;
+}
+
+function NavbarView({
+  appName,
+  pathname,
+}: {
+  appName: string;
+  pathname: string | null;
+}) {
   const [open, setOpen] = useState(false);
   const { favorites } = useFavorites();
 
-  // Cierra el menú móvil al cambiar de ruta
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
   const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+    pathname !== null &&
+    (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur">
@@ -81,6 +99,10 @@ export function Navbar({ appName }: { appName: string }) {
         <ul
           id="mobile-menu"
           className="border-t border-border bg-background px-4 py-3 md:hidden"
+          onClick={(e) => {
+            // Cierra el menú al elegir un enlace
+            if ((e.target as HTMLElement).closest("a")) setOpen(false);
+          }}
         >
           {LINKS.map((link) => (
             <li key={link.href}>

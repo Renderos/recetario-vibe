@@ -17,7 +17,7 @@ export async function GET(
     const recipe = await getRecipeById(id);
     if (!recipe) {
       return Response.json(
-        { error: `No existe ninguna receta con id ${id}.` },
+        { error: `No existe ninguna receta con id ${id}.` } satisfies ApiError,
         { status: 404 },
       );
     }
